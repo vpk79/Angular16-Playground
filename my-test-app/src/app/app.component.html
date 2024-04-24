@@ -4,8 +4,12 @@
           
             <hr>
 
-            <button class="btn btn-primary" (click)="showSecret = !showSecret">Display Details</button>
-            <p *ngIf="showSecret">Secret Password = tuna</p>
+            <button class="btn btn-primary" (click)="onToggleDisplay()">Display Details</button>
+            <!-- <p *ngIf="showSecret">Secret Password = tuna</p> -->
+            <p *ngIf="counter <= 5">{{counter}}</p>
+            <div *ngIf="counter > 5">
+                <p [ngStyle]="blue" [ngClass]="white">{{ counter }}</p>
+            </div>
         </div>
     </div>
 </div>
