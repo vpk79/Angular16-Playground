@@ -8,6 +8,7 @@ import { Recipe } from '../recipe.model';
 })
 export class RecipeListComponent {
   recipes: Recipe[] = [
+    new Recipe('Test Recipe', 'This is a test', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkBmxIsklgySGPUcahDFoFoIFMy7wKDDcGOekiKNhcbw&s'),
     new Recipe('Test Recipe', 'This is a test', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkBmxIsklgySGPUcahDFoFoIFMy7wKDDcGOekiKNhcbw&s')
   ];
 }
