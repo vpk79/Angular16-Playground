@@ -39,4 +39,9 @@ export class CartService {
   getCartObservable(): Observable<Cart>{
     return this.cartSubject.asObservable();
   }
+
+  private setCartToLocalStorage(): void {
+    const cartJson = JSON.stringify(this.cart);
+    localStorage.setItem('Cart', cartJson);
+  }
 }
