@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cart } from '../shared/models/Cart';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Food } from '../shared/models/food';
 import { CartItem } from '../shared/models/Cartitem';
 
@@ -22,5 +22,21 @@ export class CartService {
 
   removeFromCart(foodId: string): void{
     this.cart.items = this.cart.items.filter(item => item.food.id != foodId)
+  }
+
+  changeQuantity(foodId: string, quantity: number){
+    let cartItem = this.cart.items.find(item => item.food.id === foodId);
+    if(!cartItem) return;
+
+    cartItem.quantity = quantity;
+    cartItem.price = quantity * cartItem.food.price;
+  }
+
+  clearCart(){
+    this.cart = new Cart();
+  }
+
+  getCartObservable(): Observable<Cart>{
+    return this.cartSubject.asObservable();
   }
 }
