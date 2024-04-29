@@ -18,3 +18,10 @@ ul {
     padding: 0;
 }
 
+ul li{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e4e4e4;
+}
