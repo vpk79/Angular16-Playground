@@ -41,7 +41,8 @@ export class CartService {
   }
 
   private setCartToLocalStorage(): void {
-    this.cart.totalPrice = this.cart.items.reduce((prevSum, currentItem) => prevSum + currentItem.price, 0)
+    this.cart.totalPrice = this.cart.items.reduce((prevSum, currentItem) => prevSum + currentItem.price, 0);
+    this.cart.totalCount = this.cart.items.reduce((prevSUm, currentItem) => prevSUm + currentItem.quantity, 0)
     const cartJson = JSON.stringify(this.cart);
     localStorage.setItem('Cart', cartJson);
   }
