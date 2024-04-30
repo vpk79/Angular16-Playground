@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule, withFetch } from '@angular/common/http';
-import { XhrFactory } from '@angular/common';
+import { HttpClient, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -43,17 +42,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut:3000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toastr-bottom-right',
       newestOnTop: false
     }),
     
   ],
   providers: [
     provideClientHydration(),
-    {
-      provide: HttpClient,
-      useFactory: () => withFetch()
-    },
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

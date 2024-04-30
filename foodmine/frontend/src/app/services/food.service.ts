@@ -2,7 +2,6 @@ import { FOODS_BY_ID_URL, FOODS_BY_TAG_URL } from './../shared/constants/urls';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Food } from '../shared/models/food';
-import { sample_food, sample_tags } from '../data';
 import { Tag } from '../shared/models/tag';
 import { HttpClient } from '@angular/common/http';
 import { FOODS_BY_SEARCH_URL, FOODS_TAGS_URL, FOODS_URL } from '../shared/constants/urls';
