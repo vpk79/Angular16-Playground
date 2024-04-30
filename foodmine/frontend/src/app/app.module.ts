@@ -42,7 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut:3000,
-      positionClass: 'toastr-bottom-right',
+      positionClass:'toast-bottom-right',
       newestOnTop: false
     }),
     

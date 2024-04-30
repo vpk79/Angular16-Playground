@@ -21,9 +21,7 @@ export class UserService {
       tap({
         next:(user) => {
           this.userSubject.next(user);
-          this.toastrService.success(`Welcome to Foodmine ${user.name}!`,
-          'Login Successful'
-          )
+          this.toastrService.success(`Welcome to Foodmine ${user.name}!`,'Login Successful')
         },
         error: (errorResponse) => {
           this.toastrService.error(errorResponse.error, 'Login Failed');
