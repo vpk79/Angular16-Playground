@@ -11,7 +11,8 @@ const USER_KEY = 'User';
   providedIn: 'root'
 })
 export class UserService {
-  private userSubject = new BehaviorSubject<User>(new User());
+  private isLocalStorageAvailable = typeof localStorage !== 'undefined';
+  private userSubject = new BehaviorSubject<User>(this.getUserFromLocalStorage());
   public userObservable:Observable<User>;
   constructor(private http: HttpClient, private toastrService: ToastrService ) {
     this.userObservable = this.userSubject.asObservable();
@@ -21,6 +22,7 @@ export class UserService {
      return this.http.post<User>(USER_LOGIN_URL, userLogin).pipe(
       tap({
         next:(user) => {
+          this.setUserToLocalStorage(user);
           this.userSubject.next(user);
           this.toastrService.success(`Welcome to Foodmine ${user.name}!`,'Login Successful')
         },
@@ -32,12 +34,19 @@ export class UserService {
    }
 
    private setUserToLocalStorage(user:User){
+     if (this.isLocalStorageAvailable)
     localStorage.setItem(USER_KEY, JSON.stringify(user))
    }
 
    private getUserFromLocalStorage():User{
-    const userJson = localStorage.getItem(USER_KEY);
+     let userJson!: any; 
+     if (this.isLocalStorageAvailable){
+       userJson = localStorage.getItem(USER_KEY);
+     }
+   
     if(userJson) return JSON.parse(userJson) as User;
     return new User();
    }
+
+   
 }

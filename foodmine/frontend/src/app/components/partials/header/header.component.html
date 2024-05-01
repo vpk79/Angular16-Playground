@@ -4,11 +4,11 @@
 
         <nav>
             <ul>
-                <li>
+                <li *ngIf="!user.token">
                     <a routerLink="/login">Login</a>
                 </li>
                 <li class="menu-container">
-                    <a routerLink="/dashboard">John</a>
+                    <a routerLink="/dashboard">{{user.name || 'guest'}}</a>
                     <div class="menu">
                         <a routerLink="/profile">Profile</a>
                         <a routerLink="/orders">Orders</a>
