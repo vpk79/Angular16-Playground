@@ -6,6 +6,7 @@ import { USER_LOGIN_URL } from '../shared/constants/urls';
 import { IUserLogin } from '../shared/interfaces/IUSERLogin';
 import { ToastrService } from 'ngx-toastr';
 
+const USER_KEY = 'User';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,5 +29,15 @@ export class UserService {
         }
       })
      )
+   }
+
+   private setUserToLocalStorage(user:User){
+    localStorage.setItem(USER_KEY, JSON.stringify(user))
+   }
+
+   private getUserFromLocalStorage():User{
+    const userJson = localStorage.getItem(USER_KEY);
+    if(userJson) return JSON.parse(userJson) as User;
+    return new User();
    }
 }
