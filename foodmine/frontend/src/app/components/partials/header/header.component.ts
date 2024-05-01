@@ -11,7 +11,7 @@ import { User } from '../../../shared/models/User';
 export class HeaderComponent {
   cartQuantity = 0;
   user!: User;
-  constructor(cartService: CartService, userService: UserService){
+  constructor(cartService: CartService, private userService: UserService){
     cartService.getCartObservable().subscribe((newCart)=>{
       this.cartQuantity = newCart.totalCount;
     })
@@ -19,5 +19,13 @@ export class HeaderComponent {
     userService.userObservable.subscribe((newUser) => {
       this.user = newUser;
     })
+  }
+
+  logout(){
+    this.userService.logout();
+  }
+
+  get isAuth(){
+    return this.user.token;
   }
 }
