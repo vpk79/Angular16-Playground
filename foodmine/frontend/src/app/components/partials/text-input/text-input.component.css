@@ -17,3 +17,15 @@ input::placeholder{
 input:focus{
     border-width: 2.9px;
 }
+
+input-validation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    height: 100%;
+    width: 12rem;
+
+}
