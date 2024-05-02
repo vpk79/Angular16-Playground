@@ -1,8 +1,11 @@
 import { Router } from "express";
 import { sample_food, sample_tags } from "../data";
+import asynceHandler from 'express-async-handler'
 
 
 const router = Router();
+
+router.get("/seed", asynceHandler)
 
 
 router.get("/", (req, res) => {
