@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isNgTemplate } from '@angular/compiler';
 import { PasswordMatchValidator } from '../../../shared/validators/password_match_validator';
+import { IUserRegister } from '../../../shared/interfaces/IUserRegister';
 
 @Component({
   selector: 'app-register-page',
@@ -37,11 +37,24 @@ export class RegisterPageComponent implements OnInit{
     }
 
     get fc(){
-      return.registerForm.controls;
+      return this.registerForm.controls;
     }
 
     submit(){
       this.isSubmitted = true;
       if(this.registerForm.invalid) return;
+
+      const fv = this.registerForm.value;
+      const user: IUserRegister = {
+        name: fv.name,
+        email: fv.email,
+        password: fv.password,
+        confirmPassword: fv.confirmPassword,
+        address: fv.address
+      };
+
+      this.userService.register(user).subscribe(_ => {
+        this.router.navigateByUrl(this.returnUrl);
+      })
     }
 }
