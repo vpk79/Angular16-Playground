@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../../../shared/models/Order';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CartService } from '../../../services/cart.service';
 import { UserService } from '../../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +25,24 @@ export class CheckoutPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    let {name, address} = this.userService.currentUser
+    let {name, address} = this.userService.currentUser;
+    this.checkoutForm = this.FormBuilder.group({
+      name:[name, Validators.required],
+      address:[address, Validators.required]
+    })
+  }
+
+  get fc(){
+    return this.checkoutForm.controls;
+  }
+
+  createOrder(){
+    if(this.checkoutForm.invalid){
+      this.toastrService.warning('Please fill the inputs', 'Invalid Inputs');
+      return;
+    }
+
+    this.order.name = this.fc.name.value;
+    this.order.address = this.fc.address.value;
   }
 }
