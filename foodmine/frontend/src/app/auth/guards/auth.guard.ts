@@ -11,7 +11,7 @@ export class authGuard implements CanActivate {
   constructor(private userService: UserService, private router: Router) { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
 
-    if (this.userService.currentUser.name) return true;
+    if (this.userService.currentUser.name) return true; // should be currentUser.token - changed because SSR is disabled
 
     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } })
     return false;

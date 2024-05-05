@@ -26,6 +26,6 @@ export class HeaderComponent {
   }
 
   get isAuth(){
-    return this.user.name;
+    return this.user.name; // should be user.token - changed because SSR is disabled
   }
 }
