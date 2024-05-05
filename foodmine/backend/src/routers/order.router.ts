@@ -28,3 +28,4 @@ asyncHander(async(req:any, res:any) => {
     res.send(newOrder);
 }))
 
+export default router;
