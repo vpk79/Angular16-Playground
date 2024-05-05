@@ -1,6 +1,7 @@
 import { LocationService } from './../../../services/location.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { LatLng, LatLngExpression, LatLngTuple, LeafletEvent, LeafletMouseEvent, Map, Marker, icon, latLng, map, marker, tileLayer } from 'leaflet';
+import { Order } from '../../../shared/models/Order';
 
 @Component({
   selector: 'map',
@@ -8,6 +9,8 @@ import { LatLng, LatLngExpression, LatLngTuple, LeafletEvent, LeafletMouseEvent,
   styleUrl: './map.component.css'
 })
 export class MapComponent implements OnInit {
+  @Input()
+  order!:Order;
 
   private readonly MARKER_ZOOM_LEVEL = 16;
   private readonly MARKER_ICON = icon({
@@ -18,9 +21,10 @@ export class MapComponent implements OnInit {
   })
   private readonly DEFAULT_LATLNG: LatLngTuple = [13.75, 21.62];
 
+
   @ViewChild('map', { static: true })
   mapRef!: ElementRef;
-  map!: Map;
+  map!: Map 
   currentMarker!: Marker;
 
   constructor(private locationService: LocationService) { }
@@ -45,7 +49,7 @@ export class MapComponent implements OnInit {
     })
   }
 
-  findMyLocation() {
+  findMyLocation(){
     this.locationService.getCurrentLocation().subscribe({
       next: (latLng) => {
         this.map.setView(latLng, this.MARKER_ZOOM_LEVEL)
@@ -56,6 +60,7 @@ export class MapComponent implements OnInit {
   }
 
   setMarker(latLng: LatLngExpression) {
+    this.addressLatLng = latLng as LatLng;
     if (this.currentMarker){
       this.currentMarker.setLatLng(latLng)
       return;
@@ -65,7 +70,19 @@ export class MapComponent implements OnInit {
       draggable: true,
       icon: this.MARKER_ICON
     }).addTo(this.map);
+
+    this.currentMarker.on('dragend', ()=> {
+      this.addressLatLng = this.currentMarker.getLatLng();
+
+    })
    
+  }
+
+  set addressLatLng(latlng: LatLng){
+    latlng.lat = parseFloat(latlng.lat.toFixed(8))
+    latlng.lat = parseFloat(latlng.lat.toFixed(8))
+    this.order.addressLatLng = latlng;
+
   }
 
 }
